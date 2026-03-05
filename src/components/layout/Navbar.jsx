@@ -5,6 +5,7 @@ const navLinks = [
   { name: "Domů", href: "#home" },
   { name: "O nás", href: "#about" },
   { name: "Zóny", href: "#zones" },
+  { name: "Aktuality", href: "#aktuality" },
   { name: "Trenéři", href: "#team" },
   { name: "Služby", href: "#programs" },
   { name: "Kontakt", href: "#contact" },

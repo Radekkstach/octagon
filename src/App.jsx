@@ -7,6 +7,7 @@ import Trainers from "./components/sections/Trainers";
 import Programs from "./components/sections/Programs"; // <--- Nový import
 import Pricing from "./components/sections/Pricing";
 import Contact from "./components/sections/Contact";
+import GraphicNews from "./components/sections/GraphicNews";
 import Lenis from "@studio-freight/lenis";
 
 function App() {
@@ -69,6 +70,10 @@ function App() {
 
       <div id="services">
         <Zones />
+      </div>
+
+      <div id="news">
+        <GraphicNews />
       </div>
 
       <div id="team">
