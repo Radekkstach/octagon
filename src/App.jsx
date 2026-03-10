@@ -12,7 +12,11 @@ import Lenis from "@studio-freight/lenis";
 
 function App() {
   useEffect(() => {
-    if (window.innerWidth < 768) return;
+    // Spolehlivější detekce mobilu/tabletu - Lenis zapneme jen na desktopech
+    const isMobileOrTablet =
+      window.innerWidth < 1024 || "ontouchstart" in window;
+
+    if (isMobileOrTablet) return; // Pokud je to dotykové zařízení, Lenis se vůbec nenastartuje
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -22,17 +26,16 @@ function App() {
       smooth: true,
       mouseMultiplier: 1,
       smoothTouch: false,
-      touchMultiplier: 2,
     });
 
-    let rafId; // Proměnná pro uložení ID animace
+    let rafId;
 
     function raf(time) {
       lenis.raf(time);
-      rafId = requestAnimationFrame(raf); // Uložení ID při každém dalším snímku
+      rafId = requestAnimationFrame(raf);
     }
 
-    rafId = requestAnimationFrame(raf); // Prvotní spuštění a uložení ID
+    rafId = requestAnimationFrame(raf);
 
     // Kotvy
     const anchors = document.querySelectorAll('a[href^="#"]');
@@ -45,12 +48,9 @@ function App() {
       anchor.addEventListener("click", handleAnchorClick);
     });
 
-    // Úklidová funkce (Cleanup)
     return () => {
       lenis.destroy();
-      cancelAnimationFrame(rafId); // MOC DŮLEŽITÉ: Zastaví smyčku!
-
-      // Správná praxe: odebrání event listenerů
+      cancelAnimationFrame(rafId);
       anchors.forEach((anchor) => {
         anchor.removeEventListener("click", handleAnchorClick);
       });

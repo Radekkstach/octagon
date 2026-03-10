@@ -62,7 +62,7 @@ const Pricing = () => {
             {entryPasses.map((item) => (
               <div
                 key={item.id}
-                className="bg-gym-surface p-6 rounded-sm border border-white/5 flex justify-between items-center group hover:border-brand-red/50 transition-colors"
+                className="bg-gym-surface p-6 rounded-sm border border-white/5 flex justify-between items-center group lg:hover:border-brand-red/50 transition-colors"
               >
                 <div>
                   <h4 className="text-xl font-heading font-bold text-white uppercase">
@@ -71,12 +71,12 @@ const Pricing = () => {
                   <p className="text-gray-500 text-sm mt-1">{item.subtitle}</p>
                 </div>
                 <div className="text-right">
-                  <span className="block text-3xl font-heading font-bold text-white group-hover:text-brand-red transition-colors">
-                    {item.price.toLocaleString()} Kč
+                  <span className="block text-3xl font-heading font-bold text-white lg:group-hover:text-brand-red transition-colors">
+                    {item.price.toLocaleString("cs-CZ")} Kč
                   </span>
                   {item.student_price && (
                     <span className="block text-sm text-gray-400">
-                      Student: {item.student_price.toLocaleString()} Kč
+                      Student: {item.student_price.toLocaleString("cs-CZ")} Kč
                     </span>
                   )}
                 </div>
@@ -97,8 +97,8 @@ const Pricing = () => {
                 key={item.id}
                 className={`relative p-6 rounded-sm border transition-colors flex justify-between items-center group ${
                   item.is_featured
-                    ? "bg-gradient-to-r from-brand-red/20 to-gym-surface border-brand-red/50 shadow-lg shadow-brand-red/10 hover:bg-brand-red/10"
-                    : "bg-gym-surface border-white/5 hover:border-brand-red/50"
+                    ? "bg-gradient-to-r from-brand-red/20 to-gym-surface border-brand-red/50 shadow-lg shadow-brand-red/10 lg:hover:bg-brand-red/10"
+                    : "bg-gym-surface border-white/5 lg:hover:border-brand-red/50"
                 }`}
               >
                 {item.is_featured && (
@@ -119,16 +119,16 @@ const Pricing = () => {
                 <div className="text-right">
                   <span
                     className={`block text-3xl font-heading font-bold text-white transition-colors ${
-                      !item.is_featured ? "group-hover:text-brand-red" : ""
+                      !item.is_featured ? "lg:group-hover:text-brand-red" : ""
                     }`}
                   >
-                    {item.price.toLocaleString()} Kč
+                    {item.price.toLocaleString("cs-CZ")} Kč
                   </span>
                   {item.student_price && (
                     <span
                       className={`block text-sm ${item.is_featured ? "text-gray-300" : "text-gray-400"}`}
                     >
-                      Student: {item.student_price.toLocaleString()} Kč
+                      Student: {item.student_price.toLocaleString("cs-CZ")} Kč
                     </span>
                   )}
                 </div>
