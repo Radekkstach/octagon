@@ -71,7 +71,7 @@ const Hero = () => {
         {/* Hlavní fotka - PŘIDÁNO: will-change-transform pro plynulejší GSAP Parallax */}
         <div
           ref={imageRef}
-          className="absolute inset-0 bg-cover bg-center w-full h-full scale-110 will-change-transform"
+          className="absolute inset-0 bg-cover bg-center w-full h-full scale-110 md:will-change-transform"
           style={{ backgroundImage: `url(${heroImage})` }}
         ></div>
 

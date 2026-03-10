@@ -17,27 +17,25 @@ const Navbar = () => {
   const menuItemsRef = useRef([]);
 
   // 1. Detekce scrollu - OPRAVENO (Přidán throttling)
+  // 1. Detekce scrollu - OPRAVENO (Žádné zbytečné re-rendery)
   useEffect(() => {
-    let timeoutId = null;
-
     const handleScroll = () => {
-      // Pokud už běží časovač, ignorujeme další scrollovací eventy
-      if (timeoutId) return;
-
-      // Nastavíme časovač na cca 60fps (16ms)
-      timeoutId = setTimeout(() => {
-        setIsScrolled(window.scrollY > 20);
-        timeoutId = null; // Uvolníme časovač pro další kontrolu
-      }, 16);
+      // Pokud jsme pod 20px a menu ještě není ztmavené -> ztmav ho
+      if (window.scrollY > 20 && !isScrolled) {
+        setIsScrolled(true);
+      }
+      // Pokud jsme nahoře a menu je ztmavené -> zprůhledni ho
+      else if (window.scrollY <= 20 && isScrolled) {
+        setIsScrolled(false);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true }); // passive: true je důležité pro výkon scrollu
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isScrolled]); // isScrolled tady musí být jako závislost
 
   // 2. Animace otevření mobilního menu
   useEffect(() => {
