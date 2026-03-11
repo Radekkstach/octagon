@@ -4,6 +4,8 @@ import { supabase } from "../../supabase";
 const GraphicNews = () => {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0); // Nový state pro sledování aktuálního banneru na mobilu
+  // Nový state pro sledování kliknutí na mobilu
+  const [activeBannerId, setActiveBannerId] = useState(null);
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -74,22 +76,41 @@ const GraphicNews = () => {
             {banners.map((banner) => (
               <div
                 key={banner.id}
-                // TADY JE ÚPRAVA:
-                // Mobil: w-full (teď je to na celou šířku, protože neswipujeme)
-                // Tablet/Malý PC: 50%
-                // Velký PC: 33.3%
-                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] flex-none group relative overflow-hidden rounded-sm cursor-pointer"
+                // PŘIDÁNO: md:cursor-default (na PC zmizí ručička, zůstane normální šipka)
+                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] flex-none group relative overflow-hidden rounded-sm cursor-pointer md:cursor-default"
+                onClick={() => {
+                  // PŘIDÁNO: Podmínka - kliknutí funguje jen na mobilu
+                  if (window.innerWidth < 768) {
+                    setActiveBannerId(
+                      activeBannerId === banner.id ? null : banner.id,
+                    );
+                  }
+                }}
               >
-                <div className="aspect-[3/4] relative overflow-hidden border border-white/5 transition-all duration-500 group-hover:border-brand-red group-hover:shadow-2xl group-hover:shadow-brand-red/20">
+                <div className="aspect-[3/4] relative overflow-hidden border border-white/5 transition-all duration-500 md:group-hover:border-brand-red md:group-hover:shadow-2xl md:group-hover:shadow-brand-red/20">
                   <img
                     src={banner.img_url}
                     alt={banner.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105 ${
+                      activeBannerId === banner.id ? "scale-105" : ""
+                    }`}
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500"></div>
+                  {/* Ztmavení fotky - na PC hover, na mobilu podle activeBannerId */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500
+                      opacity-0 md:group-hover:opacity-100
+                      ${activeBannerId === banner.id ? "!opacity-100" : ""}
+                    `}
+                  ></div>
 
-                  <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 opacity-100 md:opacity-0 md:group-hover:opacity-100 flex items-end">
+                  {/* Text - na PC najíždí na hover, na mobilu podle activeBannerId */}
+                  <div
+                    className={`absolute bottom-0 left-0 right-0 p-8 transition-all duration-500 flex items-end
+                      translate-y-4 opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100
+                      ${activeBannerId === banner.id ? "!translate-y-0 !opacity-100" : ""}
+                    `}
+                  >
                     <h3 className="text-white font-heading font-bold text-2xl md:text-3xl uppercase leading-tight drop-shadow-md border-l-4 border-brand-red pl-4">
                       {banner.title}
                     </h3>

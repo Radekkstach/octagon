@@ -195,7 +195,7 @@ const Contact = () => {
           {/* PRAVÝ SLOUPEC - Mapa */}
           <div className="h-full min-h-[500px] w-full relative rounded-sm overflow-hidden border border-white/10 group shadow-2xl">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2613.565860472489!2d15.890696976891636!3d49.20879207604354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d10e527d216f9%3A0x6b4c106979685a22!2sOctagon%20Gym!5e0!3m2!1scs!2scz!4v1709123456789!5m2!1scs!2scz"
+              src="https://maps.google.com/maps?q=Octagon+Třebíč&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{
